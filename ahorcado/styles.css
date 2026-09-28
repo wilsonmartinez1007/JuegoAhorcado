@@ -1,0 +1,170 @@
+* {
+    box-sizing: border-box;
+}
+
+
+body {
+    margin: 0;
+
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-family: Arial, sans-serif;
+
+    background-color: #1e1e2f;
+
+    color: white;
+}
+
+
+.juego {
+    width: 450px;
+
+    padding: 30px;
+
+    text-align: center;
+
+    background-color: #2b2b40;
+
+    border-radius: 15px;
+}
+
+
+h1 {
+    margin-bottom: 25px;
+}
+
+
+h2 {
+    margin-bottom: 20px;
+}
+
+
+#configuracion input {
+    width: 80%;
+
+    padding: 12px;
+
+    margin-bottom: 15px;
+
+    border: none;
+
+    border-radius: 5px;
+
+    font-size: 16px;
+
+    text-align: center;
+}
+
+
+.ahorcado {
+    height: 180px;
+}
+
+
+#dibujo {
+    font-size: 18px;
+
+    text-align: left;
+
+    display: inline-block;
+}
+
+
+#palabra {
+    letter-spacing: 10px;
+
+    margin: 25px 0;
+}
+
+
+.entrada {
+    display: flex;
+
+    justify-content: center;
+
+    gap: 10px;
+}
+
+
+.entrada input {
+    width: 70px;
+
+    padding: 10px;
+
+    text-align: center;
+
+    font-size: 20px;
+
+    border: none;
+
+    border-radius: 5px;
+}
+
+
+button {
+    padding: 10px 15px;
+
+    border: none;
+
+    border-radius: 5px;
+
+    cursor: pointer;
+
+    background-color: #4caf50;
+
+    color: white;
+
+    font-size: 15px;
+}
+
+
+button:hover {
+    background-color: #3d8c40;
+}
+
+
+button:disabled {
+    background-color: #777;
+
+    cursor: not-allowed;
+}
+
+
+#reiniciar {
+    margin-top: 15px;
+
+    background-color: #5555cc;
+}
+
+
+#reiniciar:hover {
+    background-color: #4444aa;
+}
+
+
+#mensaje {
+    min-height: 25px;
+
+    font-weight: bold;
+}
+
+
+#letras {
+    color: #cccccc;
+}
+
+
+#errorConfiguracion {
+    color: #ff6666;
+
+    min-height: 20px;
+}
+
+
+.oculto {
+    display: none;
+}

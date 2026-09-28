@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Juego del Ahorcado</title>
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <div class="juego">
+
+        <h1>🎯 Juego del Ahorcado</h1>
+
+
+        <!-- SECCIÓN PARA INTRODUCIR LA PALABRA -->
+
+        <div id="configuracion">
+
+            <h2>Configurar partida</h2>
+
+            <p>
+                Introduce la palabra que el otro jugador debe adivinar:
+            </p>
+
+            <input
+                type="password"
+                id="palabraSecreta"
+                placeholder="Escribe la palabra"
+            >
+
+            <button id="comenzar">
+                Comenzar juego
+            </button>
+
+            <p id="errorConfiguracion"></p>
+
+        </div>
+
+
+        <!-- SECCIÓN DEL JUEGO -->
+
+        <div id="juegoContainer" class="oculto">
+
+            <div class="ahorcado">
+
+                <pre id="dibujo"></pre>
+
+            </div>
+
+
+            <h2 id="palabra"></h2>
+
+
+            <p>
+                Intentos restantes:
+                <strong id="intentos">6</strong>
+            </p>
+
+
+            <div class="entrada">
+
+                <input
+                    type="text"
+                    id="letra"
+                    maxlength="1"
+                    placeholder="Letra"
+                >
+
+                <button id="adivinar">
+                    Adivinar
+                </button>
+
+            </div>
+
+
+            <p id="mensaje"></p>
+
+
+            <p>
+                Letras utilizadas:
+                <span id="letras"></span>
+            </p>
+
+
+            <button id="reiniciar">
+                Nueva partida
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
