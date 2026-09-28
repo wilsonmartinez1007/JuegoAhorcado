@@ -1,54 +1,88 @@
 import random
 
-palabras = ["python", "computadora", "programacion", "universidad", "algoritmo"]
+PALABRAS = [
+    # Programación
+    "python", "computadora", "programacion", "algoritmo", "variable",
+    "funcion", "compilador", "servidor", "teclado", "pantalla",
+    "internet", "software", "hardware", "memoria", "procesador",
+    "archivo", "carpeta", "codigo", "sistema", "red",
+    "base", "datos", "interfaz", "navegador", "ciclo",
+    "condicion", "lista", "diccionario", "cadena", "objeto",
+    # Universidad
+    "universidad", "estudiante", "profesor", "semestre", "examen",
+    "tarea", "biblioteca", "cuaderno", "proyecto", "matricula",
+    "ingenieria", "calculo", "fisica", "laboratorio", "tesis",
+    # Innovación
+    "innovacion", "empresa", "emprendimiento", "estrategia", "mercado",
+]
+MAX_INTENTOS = 6
 
-palabra = random.choice(palabras)
-letras_adivinadas = []
-intentos = 6
 
-print("================================")
-print("       JUEGO DEL AHORCADO")
-print("================================")
+def nueva_partida():
+    return {
+        "palabra": random.choice(PALABRAS),
+        "letras_adivinadas": [],
+        "intentos": MAX_INTENTOS,
+        "mensaje": "Elige una letra para comenzar.",
+        "tipo": "info",
+        "terminado": False,
+    }
 
-while intentos > 0:
 
-    # Mostrar la palabra
-    palabra_mostrada = ""
+def palabra_mostrada(estado):
+    return [l if l in estado["letras_adivinadas"] or estado["terminado"] else "_"
+            for l in estado["palabra"]]
 
-    for letra in palabra:
-        if letra in letras_adivinadas:
-            palabra_mostrada += letra + " "
-        else:
-            palabra_mostrada += "_ "
 
-    print("\nPalabra:", palabra_mostrada)
-    print("Intentos restantes:", intentos)
+def gano(estado):
+    return all(l in estado["letras_adivinadas"] for l in estado["palabra"])
 
-    # Comprobar si ganó
-    if all(letra in letras_adivinadas for letra in palabra):
-        print("\n¡Felicidades! Adivinaste la palabra.")
-        break
 
-    letra = input("Ingresa una letra: ").lower()
+def jugar_letra(estado, letra):
+    letra = letra.lower()
+
+    if estado["terminado"]:
+        return estado
 
     # Validaciones
     if len(letra) != 1 or not letra.isalpha():
-        print("Por favor, ingresa solamente una letra.")
-        continue
+        estado["mensaje"], estado["tipo"] = "Por favor, ingresa solamente una letra.", "info"
+        return estado
 
-    if letra in letras_adivinadas:
-        print("Ya habías utilizado esa letra.")
-        continue
+    if letra in estado["letras_adivinadas"]:
+        estado["mensaje"], estado["tipo"] = "Ya habías utilizado esa letra.", "info"
+        return estado
 
-    letras_adivinadas.append(letra)
+    estado["letras_adivinadas"].append(letra)
 
     # Comprobar letra
-    if letra in palabra:
-        print("¡Correcto! La letra está en la palabra.")
+    if letra in estado["palabra"]:
+        estado["mensaje"], estado["tipo"] = "¡Correcto! La letra está en la palabra.", "ok"
     else:
-        intentos -= 1
-        print("Incorrecto. Esa letra no está en la palabra.")
+        estado["intentos"] -= 1
+        estado["mensaje"], estado["tipo"] = "Incorrecto. Esa letra no está en la palabra.", "bad"
 
-else:
-    print("\n¡Perdiste!")
-    print("La palabra era:", palabra)
+    # Comprobar si ganó o perdió
+    if gano(estado):
+        estado["mensaje"], estado["tipo"] = "¡Felicidades! Adivinaste la palabra.", "ok"
+        estado["terminado"] = True
+    elif estado["intentos"] == 0:
+        estado["mensaje"] = f"¡Perdiste! La palabra era: {estado['palabra']}"
+        estado["tipo"] = "bad"
+        estado["terminado"] = True
+
+    return estado
+
+
+# Modo consola (solo se ejecuta si corres este archivo directamente)
+if __name__ == "__main__":
+    print("================================")
+    print("       JUEGO DEL AHORCADO")
+    print("================================")
+
+    estado = nueva_partida()
+    while not estado["terminado"]:
+        print("\nPalabra:", " ".join(palabra_mostrada(estado)))
+        print("Intentos restantes:", estado["intentos"])
+        estado = jugar_letra(estado, input("Ingresa una letra: "))
+        print(estado["mensaje"])
